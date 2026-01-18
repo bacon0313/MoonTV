@@ -8,24 +8,10 @@ import Hls from 'hls.js';
 export function getImageProxyUrl(): string | null {
   if (typeof window === 'undefined') return null;
 
-  // 本地未开启图片代理，则不使用代理
-  const enableImageProxy = localStorage.getItem('enableImageProxy');
-  if (enableImageProxy !== null) {
-    if (!JSON.parse(enableImageProxy) as boolean) {
-      return null;
-    }
-  }
-
-  const localImageProxy = localStorage.getItem('imageProxyUrl');
-  if (localImageProxy != null) {
-    return localImageProxy.trim() ? localImageProxy.trim() : null;
-  }
-
-  // 如果未设置，则使用全局对象
-  const serverImageProxy = (window as any).RUNTIME_CONFIG?.IMAGE_PROXY;
-  return serverImageProxy && serverImageProxy.trim()
-    ? serverImageProxy.trim()
-    : null;
+  // --- 老師建議的強制修改內容 ---
+  // 直接回傳代理網址，略過所有本地判斷與環境變數檢查
+  return "https://images.weserv.nl/?url=";
+  // ---------------------------
 }
 
 /**
